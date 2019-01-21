@@ -29,7 +29,7 @@ class eos_data_fetch(object):
         block_df = pd.DataFrame(blocks_dict)
         block_df['transactions'] = trx_len
         block_df = block_df.drop(['block_extensions','header_extensions'],axis=1)
-        ##block_df.to_csv('eos_data/eos_block.csv',index=False)
+        block_df.to_csv('eos_block.csv',index=False)
         return(block_df)
 
         
@@ -63,16 +63,16 @@ class eos_data_fetch(object):
         trx_dict_update = temp.trx.tolist()
         tx_df = pd.DataFrame.from_dict(trx_dict_update)
         tx_df['block_num'] = temp['block_num'].tolist()
-        ##tx_df.to_csv('tx_in_transactions.csv')
+        tx_df.to_csv('tx_in_transactions.csv')
         # Transaction in block updated to change dict type 
         transactions_df['trx'] = trx_list
-        ##transactions_df.to_csv('eos_data/transactions_in_block.csv',index=False)
+        transactions_df.to_csv('transactions_in_block.csv',index=False)
         # Transaction in Trx
         tran_tx = pd.DataFrame.from_dict(tx_df.transaction.tolist())
         tran_tx['id'] = tx_df['id'].tolist()
         tran_tx['block_num'] = tx_df['block_num'].tolist()
         tran_tx = tran_tx.drop(['context_free_actions','transaction_extensions'],axis=1) 
-        ##tran_tx.to_csv('eos_data/tran_tx.csv',index=False)
+        tran_tx.to_csv('tran_tx.csv',index=False)
         
         # Actions data in block
         action_dict = tran_tx.actions.tolist()
@@ -109,7 +109,7 @@ class eos_data_fetch(object):
         #data_df = data_df[data_summary.columns.values]
         actions_df = pd.concat([actions_df_raw,auth_df,data_df],axis=1)
         actions_df = actions_df.drop(['authorization','data'],axis=1)
-        ##actions_df.to_csv('eos_data/actions.csv',index=False)
+        actions_df.to_csv('actions.csv',index=False)
         return(transactions_df,actions_df)
 
  
